@@ -14,57 +14,57 @@ public class Fruit {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int fruitId;
 
     @Column
-    private String name;
+    private String fruitName;
 
     @Column
     private double price;
 
     @Column
     @Min(0)
-    private double lowStock; // indicates what value consistutes this fruit being low stock
+    private int lowStock; // indicates what value consistutes this fruit being low stock
 
     @Column
-    private double highStock; // indicates what value consistutes this fruit being high stock
+    private int highStock; // indicates what value consistutes this fruit being high stock
 
     @Column
     private String graphColor; // determines the color that the fruit will appear in the capacity graph
 
     public Fruit() {}
 
-    public Fruit(String name, double price, @Min(0) double lowStock, double highStock, String graphColor) {
-        this.name = name;
+    public Fruit(String fruitName, double price, @Min(0) int lowStock, int highStock, String graphColor) {
+        this.fruitName = fruitName;
         this.price = price;
         this.lowStock = lowStock;
         this.highStock = highStock;
         this.graphColor = graphColor;
     }
 
-    public Fruit(int id, String name, double price, @Min(0) double lowStock, double highStock, String graphColor) {
-        this.id = id;
-        this.name = name;
+    public Fruit(int fruitId, String fruitName, double price, @Min(0) int lowStock, int highStock, String graphColor) {
+        this.fruitId = fruitId;
+        this.fruitName = fruitName;
         this.price = price;
         this.lowStock = lowStock;
         this.highStock = highStock;
         this.graphColor = graphColor;
     }
 
-    public int getId() {
-        return id;
+    public int getFruitId() {
+        return fruitId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setFruitId(int fruitId) {
+        this.fruitId = fruitId;
     }
 
-    public String getName() {
-        return name;
+    public String getFruitName() {
+        return fruitName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFruitName(String fruitName) {
+        this.fruitName = fruitName;
     }
 
     public double getPrice() {
@@ -75,19 +75,19 @@ public class Fruit {
         this.price = price;
     }
 
-    public double getLowStock() {
+    public int getLowStock() {
         return lowStock;
     }
 
-    public void setLowStock(double lowStock) {
+    public void setLowStock(int lowStock) {
         this.lowStock = lowStock;
     }
 
-    public double getHighStock() {
+    public int getHighStock() {
         return highStock;
     }
 
-    public void setHighStock(double highStock) {
+    public void setHighStock(int highStock) {
         this.highStock = highStock;
     }
 
@@ -103,15 +103,13 @@ public class Fruit {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + id;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + fruitId;
+        result = prime * result + ((fruitName == null) ? 0 : fruitName.hashCode());
         long temp;
         temp = Double.doubleToLongBits(price);
         result = prime * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(lowStock);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(highStock);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + lowStock;
+        result = prime * result + highStock;
         result = prime * result + ((graphColor == null) ? 0 : graphColor.hashCode());
         return result;
     }
@@ -125,18 +123,18 @@ public class Fruit {
         if (getClass() != obj.getClass())
             return false;
         Fruit other = (Fruit) obj;
-        if (id != other.id)
+        if (fruitId != other.fruitId)
             return false;
-        if (name == null) {
-            if (other.name != null)
+        if (fruitName == null) {
+            if (other.fruitName != null)
                 return false;
-        } else if (!name.equals(other.name))
+        } else if (!fruitName.equals(other.fruitName))
             return false;
         if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
             return false;
-        if (Double.doubleToLongBits(lowStock) != Double.doubleToLongBits(other.lowStock))
+        if (lowStock != other.lowStock)
             return false;
-        if (Double.doubleToLongBits(highStock) != Double.doubleToLongBits(other.highStock))
+        if (highStock != other.highStock)
             return false;
         if (graphColor == null) {
             if (other.graphColor != null)
@@ -148,10 +146,8 @@ public class Fruit {
 
     @Override
     public String toString() {
-        return "Fruit [id=" + id + ", name=" + name + ", price=" + price + ", lowStock=" + lowStock + ", highStock="
-                + highStock + ", graphColor=" + graphColor + "]";
+        return "Fruit [fruitId=" + fruitId + ", fruitName=" + fruitName + ", price=" + price + ", lowStock=" + lowStock
+                + ", highStock=" + highStock + ", graphColor=" + graphColor + "]";
     }
-
-    
     
 }

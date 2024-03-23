@@ -13,7 +13,7 @@ public class Inventory {
     @Column
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int inventoryId;
 
     @Column
     private int quantity;
@@ -32,19 +32,19 @@ public class Inventory {
         this.warehouseId = warehouseId;
     }
 
-    public Inventory(int id, int quantity, int fruitId, int warehouseId) {
-        this.id = id;
+    public Inventory(int inventoryId, int quantity, int fruitId, int warehouseId) {
+        this.inventoryId = inventoryId;
         this.quantity = quantity;
         this.fruitId = fruitId;
         this.warehouseId = warehouseId;
     }
 
-    public int getId() {
-        return id;
+    public int getInventoryId() {
+        return inventoryId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setInventoryId(int inventoryId) {
+        this.inventoryId = inventoryId;
     }
 
     public int getQuantity() {
@@ -75,7 +75,7 @@ public class Inventory {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + id;
+        result = prime * result + inventoryId;
         result = prime * result + quantity;
         result = prime * result + fruitId;
         result = prime * result + warehouseId;
@@ -91,7 +91,7 @@ public class Inventory {
         if (getClass() != obj.getClass())
             return false;
         Inventory other = (Inventory) obj;
-        if (id != other.id)
+        if (inventoryId != other.inventoryId)
             return false;
         if (quantity != other.quantity)
             return false;
@@ -104,9 +104,8 @@ public class Inventory {
 
     @Override
     public String toString() {
-        return "Inventory [id=" + id + ", quantity=" + quantity + ", fruitId=" + fruitId + ", warehouseId="
-                + warehouseId + "]";
+        return "Inventory [inventoryId=" + inventoryId + ", quantity=" + quantity + ", fruitId=" + fruitId
+                + ", warehouseId=" + warehouseId + "]";
     }
-
 
 }

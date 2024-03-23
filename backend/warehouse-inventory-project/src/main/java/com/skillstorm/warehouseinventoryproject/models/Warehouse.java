@@ -13,33 +13,33 @@ public class Warehouse {
     @Column
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int warehouseId;
 
     @Column
     private String address;
 
     @Column
-    private String name;
+    private String warehouseName;
 
     public Warehouse() {}
 
-    public Warehouse(String address, String name) {
+    public Warehouse(String address, String warehouseName) {
         this.address = address;
-        this.name = name;
+        this.warehouseName = warehouseName;
     }
 
-    public Warehouse(int id, String address, String name) {
-        this.id = id;
+    public Warehouse(int warehouseId, String address, String warehouseName) {
+        this.warehouseId = warehouseId;
         this.address = address;
-        this.name = name;
+        this.warehouseName = warehouseName;
     }
 
-    public int getId() {
-        return id;
+    public int getWarehouseId() {
+        return warehouseId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setWarehouseId(int warehouseId) {
+        this.warehouseId = warehouseId;
     }
 
     public String getAddress() {
@@ -50,21 +50,21 @@ public class Warehouse {
         this.address = address;
     }
 
-    public String getName() {
-        return name;
+    public String getWarehouseName() {
+        return warehouseName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setWarehouseName(String warehouseName) {
+        this.warehouseName = warehouseName;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + id;
+        result = prime * result + warehouseId;
         result = prime * result + ((address == null) ? 0 : address.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((warehouseName == null) ? 0 : warehouseName.hashCode());
         return result;
     }
 
@@ -77,23 +77,26 @@ public class Warehouse {
         if (getClass() != obj.getClass())
             return false;
         Warehouse other = (Warehouse) obj;
-        if (id != other.id)
+        if (warehouseId != other.warehouseId)
             return false;
         if (address == null) {
             if (other.address != null)
                 return false;
         } else if (!address.equals(other.address))
             return false;
-        if (name == null) {
-            if (other.name != null)
+        if (warehouseName == null) {
+            if (other.warehouseName != null)
                 return false;
-        } else if (!name.equals(other.name))
+        } else if (!warehouseName.equals(other.warehouseName))
             return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "Warehouse [id=" + id + ", address=" + address + ", name=" + name + "]";
+        return "Warehouse [warehouseId=" + warehouseId + ", address=" + address + ", warehouseName=" + warehouseName
+                + "]";
     }
+
+    
 }
