@@ -7,7 +7,7 @@ spring:
         #driverClassName: org.h2.Driver # jdbs uses this to connect to database
 
         #postgres
-        url: jdbc:postgresql://localhost:5432/movies
+        url: jdbc:postgresql://localhost:5432/warehouse_management
         username: postgres
         password: skillstorm123
     output:
