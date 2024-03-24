@@ -30,7 +30,7 @@ public class FruitController {
     public ResponseEntity<Fruit> createFruit(@RequestBody Fruit fruit) {
         Fruit newFruit = fruitService.saveFruit(fruit);
 
-        return new ResponseEntity<Fruit>(newFruit, HttpStatus.OK);
+        return new ResponseEntity<Fruit>(newFruit, HttpStatus.CREATED);
     }
 
     // view all fruits
