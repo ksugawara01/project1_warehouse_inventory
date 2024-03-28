@@ -12,24 +12,24 @@ import jakarta.validation.constraints.Min;
 @Table(name = "fruit")
 public class Fruit {
     @Id
-    @Column
+    @Column(name = "fruit_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int fruitId;
 
-    @Column
+    @Column(name = "fruit_name")
     private String fruitName;
 
     @Column
     private double price;
 
-    @Column
+    @Column(name = "low_stock")
     @Min(0)
     private int lowStock; // indicates what value consistutes this fruit being low stock
 
-    @Column
+    @Column(name = "high_stock")
     private int highStock; // indicates what value consistutes this fruit being high stock
 
-    @Column
+    @Column(name = "graph_color")
     private String graphColor; // determines the color that the fruit will appear in the capacity graph
 
     public Fruit() {}

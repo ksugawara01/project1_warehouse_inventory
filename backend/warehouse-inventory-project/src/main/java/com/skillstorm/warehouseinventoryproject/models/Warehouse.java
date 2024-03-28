@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "warehouse")
 public class Warehouse {
-    @Column
+    @Column(name = "warehouse_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int warehouseId;
@@ -18,7 +18,7 @@ public class Warehouse {
     @Column
     private String address;
 
-    @Column
+    @Column(name = "warehouse_name")
     private String warehouseName;
 
     public Warehouse() {}
