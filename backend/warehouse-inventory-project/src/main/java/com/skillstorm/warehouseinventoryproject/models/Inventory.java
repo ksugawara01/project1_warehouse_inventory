@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "inventory")
 public class Inventory {
-    @Column
+    @Column(name = "inventory_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int inventoryId;
@@ -18,10 +18,10 @@ public class Inventory {
     @Column
     private int quantity;
 
-    @Column
+    @Column(name = "fruit_id")
     private int fruitId; // foreign key for fruit id
 
-    @Column
+    @Column(name = "warehouse_id")
     private int warehouseId; // foreign key for warehouse id
 
     public Inventory() {}
