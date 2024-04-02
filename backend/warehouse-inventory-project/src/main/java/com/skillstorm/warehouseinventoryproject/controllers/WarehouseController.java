@@ -2,7 +2,6 @@ package com.skillstorm.warehouseinventoryproject.controllers;
 
 import java.util.List;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +25,7 @@ public class WarehouseController {
     WarehouseService warehouseService;
 
     // create warehouse
-    @PostMapping("/warehouse")
+    @PostMapping
     public ResponseEntity<Warehouse> createWarehouse(@RequestBody Warehouse warehouse) {
         Warehouse newWarehouse = warehouseService.createWarehouse(warehouse);
 
@@ -42,23 +41,23 @@ public class WarehouseController {
     }
 
     // view warehouse by id
-    @GetMapping("/warehouse/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Warehouse> getWarehouseById(@PathVariable int id) {
         Warehouse warehouse = warehouseService.getWarehouseById(id);
 
         return new ResponseEntity<Warehouse>(warehouse, HttpStatus.OK);
     }
 
-    // update warehouse by id
-    @PutMapping("/warehouse")
+    // update warehouse
+    @PutMapping
     public ResponseEntity<Warehouse> updateWarehouse(@RequestBody Warehouse warehouse) {
         Warehouse updatedWarehouse = warehouseService.updateWarehouse(warehouse);
 
         return new ResponseEntity<Warehouse>(updatedWarehouse, HttpStatus.OK);
     }
 
-    // delete warehouse by id
-    @DeleteMapping("/warehouse")
+    // delete warehouse
+    @DeleteMapping
     public ResponseEntity<Integer> deleteWarehouse(@RequestBody Warehouse warehouse) {
         warehouseService.deleteWarehouse(warehouse);
 

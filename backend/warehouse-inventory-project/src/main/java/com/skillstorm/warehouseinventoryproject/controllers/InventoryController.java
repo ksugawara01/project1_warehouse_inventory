@@ -25,7 +25,7 @@ public class InventoryController {
     InventoryService inventoryService;
 
     // create item in inventory
-    @PostMapping("/item")
+    @PostMapping
     public ResponseEntity<Inventory> createItem(@RequestBody Inventory item) {
         Inventory newItem = inventoryService.createItem(item);
         return new ResponseEntity<Inventory>(newItem, HttpStatus.CREATED);
@@ -53,7 +53,7 @@ public class InventoryController {
     }
 
     // update item by id
-    @PutMapping("/item")
+    @PutMapping
     public ResponseEntity<Inventory> updateItem(@RequestBody Inventory item) {
         Inventory updatedItem = inventoryService.updateItem(item);
 
@@ -61,7 +61,7 @@ public class InventoryController {
     }
 
     // delete item by id
-    @DeleteMapping("/item")
+    @DeleteMapping
     public ResponseEntity<Integer> deleteItem(@RequestBody Inventory item) {
         inventoryService.deleteItem(item);
         return ResponseEntity.noContent().build();

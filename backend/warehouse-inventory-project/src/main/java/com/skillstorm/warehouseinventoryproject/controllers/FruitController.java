@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +25,7 @@ public class FruitController {
     FruitService fruitService;
 
     // create fruit
-    @PostMapping("/fruit")
+    @PostMapping
     public ResponseEntity<Fruit> createFruit(@RequestBody Fruit fruit) {
         Fruit newFruit = fruitService.saveFruit(fruit);
 
@@ -41,7 +40,7 @@ public class FruitController {
     }
 
     // view fruit by id
-    @GetMapping("/fruit/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Fruit> getFruitById(@PathVariable int id) {
         Fruit fruit = fruitService.getFruitById(id);
 
@@ -49,7 +48,7 @@ public class FruitController {
     }
 
     // update fruit
-    @PutMapping("/fruit")
+    @PutMapping
     public ResponseEntity<Fruit> updateFruit(@RequestBody Fruit fruit) {
         Fruit updatedFruit = fruitService.updateFruit(fruit);
 
@@ -57,7 +56,7 @@ public class FruitController {
     }
 
     // delete fruit
-    @DeleteMapping("/fruit")
+    @DeleteMapping
     public ResponseEntity<Integer> deleteFruit(@RequestBody Fruit fruit) {
         fruitService.deleteFruit(fruit);
         return ResponseEntity.noContent().build();
