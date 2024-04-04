@@ -21,17 +21,22 @@ public class Warehouse {
     @Column(name = "warehouse_name")
     private String warehouseName;
 
+    @Column(name="max_capacity")
+    private int maxCapacity;
+
     public Warehouse() {}
 
-    public Warehouse(String address, String warehouseName) {
+    public Warehouse(String address, String warehouseName, int maxCapacity) {
         this.address = address;
         this.warehouseName = warehouseName;
+        this.maxCapacity = maxCapacity;
     }
 
-    public Warehouse(int warehouseId, String address, String warehouseName) {
+    public Warehouse(int warehouseId, String address, String warehouseName, int maxCapacity) {
         this.warehouseId = warehouseId;
         this.address = address;
         this.warehouseName = warehouseName;
+        this.maxCapacity = maxCapacity;
     }
 
     public int getWarehouseId() {
@@ -58,6 +63,14 @@ public class Warehouse {
         this.warehouseName = warehouseName;
     }
 
+    public int getMaxCapacity() {
+        return maxCapacity;
+    }
+
+    public void setMaxCapacity(int maxCapacity) {
+        this.maxCapacity = maxCapacity;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -65,6 +78,7 @@ public class Warehouse {
         result = prime * result + warehouseId;
         result = prime * result + ((address == null) ? 0 : address.hashCode());
         result = prime * result + ((warehouseName == null) ? 0 : warehouseName.hashCode());
+        result = prime * result + maxCapacity;
         return result;
     }
 
@@ -89,14 +103,15 @@ public class Warehouse {
                 return false;
         } else if (!warehouseName.equals(other.warehouseName))
             return false;
+        if (maxCapacity != other.maxCapacity)
+            return false;
         return true;
     }
 
     @Override
     public String toString() {
         return "Warehouse [warehouseId=" + warehouseId + ", address=" + address + ", warehouseName=" + warehouseName
-                + "]";
+                + ", maxCapacity=" + maxCapacity + "]";
     }
 
-    
 }
