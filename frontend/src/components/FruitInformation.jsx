@@ -1,9 +1,5 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
 import styled from 'styled-components'
-
-// Services
-import fruitService from '../services/fruits'
 
 // radix ui component
 import * as ScrollArea from '@radix-ui/react-scroll-area'
@@ -13,14 +9,17 @@ import '../radix-styles/table-scroll-area.css';
 import FruitRow from './FruitRow'
 import TableContainer from './TableContainer'
 import AddFruitModal from './AddFruitModal'
+import { StyledTable, FlexDiv } from './StyledTable'
 
 export default function FruitInformation(props) {
     const {fruitsList, setFruitsList} = props;
       
     return (
         <StyledFruitInformation>
-            <h1>Fruits</h1>
-            <AddFruitModal fruitsList={fruitsList} setFruitsList={setFruitsList}/>
+            <FlexDiv>
+                <h1>Fruit Types</h1>
+                <AddFruitModal fruitsList={fruitsList} setFruitsList={setFruitsList}/>
+            </FlexDiv>
             <ScrollArea.Root className="ScrollAreaRoot">
                 <ScrollArea.Viewport className="ScrollAreaViewport">
                     {/*
@@ -32,14 +31,14 @@ export default function FruitInformation(props) {
                         </div>
                     */}
                     <TableContainer>
-                        <table>
+                        <StyledTable>
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Price (per unit)</th>
-                                    <th>Low Stock Quantity</th>
-                                    <th>High Stock Quantity</th>
-                                    <th>Graph Color</th>
+                                    <th style={{width: '250px'}}>Name</th>
+                                    <th style={{width: '250px'}}>Price</th>
+                                    <th style={{width: '250px'}} >Low Stock Quantity</th>
+                                    <th style={{width: '250px'}}>High Stock Quantity</th>
+                                    <th style={{width: '250px'}}>Graph Color</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -47,7 +46,7 @@ export default function FruitInformation(props) {
                                     return <FruitRow key={fruit.fruitId} fruit={fruit} fruitsList={fruitsList} setFruitsList={setFruitsList} />
                                 })}
                             </tbody>
-                        </table>
+                        </StyledTable>
                     </TableContainer>
                 </ScrollArea.Viewport>
                 <ScrollArea.Scrollbar className="ScrollAreaScrollbar" orientation="vertical">
@@ -66,7 +65,6 @@ export default function FruitInformation(props) {
 // Styled Components
 
 const StyledFruitInformation = styled.div`
-    border: 10px solid red;
     height: 100%;
 `
 

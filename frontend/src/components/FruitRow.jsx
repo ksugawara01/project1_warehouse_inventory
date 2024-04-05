@@ -26,14 +26,40 @@ export default function FruitRow(props) {
 
     return (
         <tr>
-            <td>{fruitName}</td>
-            <td>${price}</td>
-            <td>{lowStock}</td>
-            <td>{highStock}</td>
-            <td>{graphColor}</td>
-            <td><EditFruitModal fruit={fruit} fruitsList={fruitsList} setFruitsList={setFruitsList}></EditFruitModal></td>
-            <td><button onClick={handleDelete}>Delete</button></td>
+            <StyledTD>{fruitName}</StyledTD>
+            <StyledTD>${price}</StyledTD>
+            <StyledTD>{lowStock}</StyledTD>
+            <StyledTD>{highStock}</StyledTD>
+            <StyledTD>{graphColor}</StyledTD>
+            <StyledTD><EditFruitModal fruit={fruit} fruitsList={fruitsList} setFruitsList={setFruitsList}></EditFruitModal></StyledTD>
+            <StyledTD><StyledButton onClick={handleDelete}>Delete</StyledButton></StyledTD>
         </tr>
     )
 
 }
+
+// Styled Components
+
+const StyledButton = styled.button`
+    background-color: #8a0b0b;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 15px 20px;
+    margin: 5px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #b81212;
+        cursor: pointer;
+    }
+`
+
+const StyledTD = styled.td`
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-collapse: collapse;
+`

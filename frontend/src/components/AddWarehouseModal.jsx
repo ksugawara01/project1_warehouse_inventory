@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Modal from 'react-overlays/Modal'
 
 import warehouseService from'../services/warehouses'
+import StyledForm from './StyledForm'
 
 export default function AddWarehouseModal(props) {
     const {warehouseList, setWarehouseList} = props
@@ -83,13 +84,13 @@ export default function AddWarehouseModal(props) {
 
     return (
         <div className="modal-example">
-            <button
+            <SmallButton
                 type="button"
                 className="btn btn-primary mb-4"
                 onClick={() => setShow(true)}
             >
-                Add New Warehouse
-            </button>
+                Add Warehouse
+            </SmallButton>
 
             <StyledModal
                 show={show}
@@ -97,8 +98,8 @@ export default function AddWarehouseModal(props) {
                 renderBackdrop={renderBackdrop}
                 aria-labelledby="modal-label"
             >
-                <form>
-                    <h2>Create Warehouse</h2>
+                <StyledForm>
+                    <h1>Create Warehouse</h1>
 
                     <label >Warehouse Name:</label><br/>
                     <input type='text' id='warehouseName' name='warehouseName' onChange={handleFormChange} ></input><br/>
@@ -111,25 +112,22 @@ export default function AddWarehouseModal(props) {
                     
                     {displayError ? errorMessage.map((message) => <ErrorMessage key={ message }>{ message }</ErrorMessage>) : null}
 
-                    <button onClick={handleSubmit}>submit</button>
-                </form>
+                    <StyledButton onClick={handleSubmit}>submit</StyledButton>
+                </StyledForm>
             </StyledModal>
         </div>
     )
 }
-
-
-
 
 // Styled Components
 
 const StyledModal = styled(Modal)`
     position: fixed;
     width: 400px;
-    height: 600px;
+    height: 450px;
     z-index: 1040;
     top: 25%;
-    left: 50%;
+    left: 40%;
     border: 1px solid #e5e5e5;
     background-color: white;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
@@ -146,6 +144,45 @@ const Backdrop = styled("div")`
     background-color: #000;
     opacity: 0.6;
 `;
+
+const StyledButton = styled.button`
+    background-color: #0063DB;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 20px;
+    margin: 5px;
+    margin-left: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #0082C8;
+        cursor: pointer;
+    }
+`
+
+const SmallButton = styled.button`
+    background-color: #0063DB;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 8px 17px;
+    margin: 5px;
+    margin-left: 10px;
+    margin-top: 30px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #0082C8;
+        cursor: pointer;
+    }
+`
 
 const ErrorMessage = styled.div`
     color: red;

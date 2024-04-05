@@ -1,7 +1,5 @@
 import React from 'react'
-import {
-        Routes, Route, Link, useNavigate
-    } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import headerlogo from '../images/logo.png'
 
@@ -10,7 +8,7 @@ export default function Header() {
     return (
         <StyledHeader>
             <Link to='/' ><StyledHeaderLogo src={headerlogo}/></Link>
-            <Link to='/' ><HeaderText>Fruit Warehouse Inventory</HeaderText></Link>
+            <StyledLink to='/' ><HeaderText>Fruit Warehouse Inventory</HeaderText></StyledLink>
         </StyledHeader>
     )
 }
@@ -22,7 +20,7 @@ const StyledHeader = styled.div`
     justify-content: left;
     align-items: center;
     background-color: #0063DB;
-    height: 3rem;
+    height: 5vh;
     padding: .5rem;
 `
 
@@ -33,21 +31,12 @@ const StyledHeaderLogo = styled.img`
 
 const HeaderText = styled.span`
     color: white;
+    text-decoration: none;
     font-size: 24px;
     font-weight: bold;
     margin-left: 20px;
 `
 
 const StyledLink = styled(Link)`
-    color: white;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 16px;
-    font-weight: bold;
     text-decoration: none;
-    margin-top: 5px;
-    margin-right: 10px;
-    &:hover {
-        color: lightgrey;
-        cursor: pointer;
-  }
 `

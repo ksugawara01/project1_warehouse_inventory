@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.skillstorm.warehouseinventoryproject.models.Warehouse;
 import com.skillstorm.warehouseinventoryproject.services.WarehouseService;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/warehouses")
@@ -44,7 +47,7 @@ public class WarehouseController {
 
     // view warehouse by id
     @GetMapping("/{id}")
-    public ResponseEntity<Warehouse> getWarehouseById(@PathVariable int id) {
+    public ResponseEntity<Warehouse> getWarehouseById(@PathVariable @Positive @Positive int id) {
         Warehouse warehouse = warehouseService.getWarehouseById(id);
 
         return new ResponseEntity<Warehouse>(warehouse, HttpStatus.OK);
@@ -52,7 +55,7 @@ public class WarehouseController {
 
     // update warehouse
     @PutMapping
-    public ResponseEntity<Warehouse> updateWarehouse(@RequestBody Warehouse warehouse) {
+    public ResponseEntity<Warehouse> updateWarehouse(@Valid @RequestBody Warehouse warehouse) {
         Warehouse updatedWarehouse = warehouseService.updateWarehouse(warehouse);
 
         return new ResponseEntity<Warehouse>(updatedWarehouse, HttpStatus.OK);
@@ -60,7 +63,7 @@ public class WarehouseController {
 
     // delete warehouse
     @DeleteMapping
-    public ResponseEntity<Integer> deleteWarehouse(@RequestBody Warehouse warehouse) {
+    public ResponseEntity<Integer> deleteWarehouse(@Valid @RequestBody Warehouse warehouse) {
         warehouseService.deleteWarehouse(warehouse);
 
         return ResponseEntity.noContent().build();

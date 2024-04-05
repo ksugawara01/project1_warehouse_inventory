@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.skillstorm.warehouseinventoryproject.models.Fruit;
 import com.skillstorm.warehouseinventoryproject.services.FruitService;
 
+import jakarta.validation.Valid;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/fruits")
@@ -28,7 +30,7 @@ public class FruitController {
 
     // create fruit
     @PostMapping
-    public ResponseEntity<Fruit> createFruit(@RequestBody Fruit fruit) {
+    public ResponseEntity<Fruit> createFruit(@Valid @RequestBody Fruit fruit) {
         Fruit newFruit = fruitService.saveFruit(fruit);
 
         return new ResponseEntity<Fruit>(newFruit, HttpStatus.CREATED);
@@ -51,7 +53,7 @@ public class FruitController {
 
     // update fruit
     @PutMapping
-    public ResponseEntity<Fruit> updateFruit(@RequestBody Fruit fruit) {
+    public ResponseEntity<Fruit> updateFruit(@Valid @RequestBody Fruit fruit) {
         Fruit updatedFruit = fruitService.updateFruit(fruit);
 
         return new ResponseEntity<Fruit>(updatedFruit, HttpStatus.OK);
@@ -59,7 +61,7 @@ public class FruitController {
 
     // delete fruit
     @DeleteMapping
-    public ResponseEntity<Integer> deleteFruit(@RequestBody Fruit fruit) {
+    public ResponseEntity<Integer> deleteFruit(@Valid @RequestBody Fruit fruit) {
         fruitService.deleteFruit(fruit);
         return ResponseEntity.noContent().build();
     }

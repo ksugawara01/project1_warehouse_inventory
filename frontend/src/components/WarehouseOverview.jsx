@@ -1,5 +1,4 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import InfoCard from './InfoCard'
@@ -69,7 +68,7 @@ export default function WarehouseOverview(props) {
             <h1>{warehouseName}</h1>
             <div>{address}</div>
             <InfoContainer>
-                <InfoCard category='Warehouse Capacity' data={`${fruitCount}/${maxCapacity} Fruit`} />
+                <InfoCard category='Warehouse Capacity' data={`${fruitCount}/${maxCapacity}`} />
                 {/*<InfoCard category='Count of Fruit' data={`${fruitCount} Fruit`} />*/}
                 <InfoCard category='Value of Fruit' data={`$${fruitValue}`} />
                 <InventoryIssuesCard inventory={currentWarehouseInventory}/>
@@ -92,12 +91,12 @@ const InfoContainer = styled.div`
     justify-content: space-evenly;
     align-items: center;
     height: 20%;
-    border: 2px solid red;
+
 `
 const GraphContainer = styled.div`
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     height: 30%;
-    border: 2px solid red;
+    box-shadow: 0 2px 10px gray;
 `

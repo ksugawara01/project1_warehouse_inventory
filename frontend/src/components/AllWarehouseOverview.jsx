@@ -1,8 +1,6 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import InfoCard from './InfoCard'
-import GraphCard from './GraphCard'
 
 export default function AllWarehouseOverview(props) {
     const { warehouseCount, combinedInventory } = props;
@@ -34,16 +32,12 @@ export default function AllWarehouseOverview(props) {
 
     return(
         <StyledOverview>
-            <h1>Overview</h1>
+            <h1>Fruit Warehouse Inventory System</h1>
             <InfoContainer>
                 <InfoCard category='Count of all fruit' data={`${fruitCount} Fruit`} />
                 <InfoCard category='value of fruit' data={`$${fruitValue}`} />
                 <InfoCard category='# of Warehouses' data={`${warehouseCount} Warehouses`} />
             </InfoContainer>
-            <GraphContainer>
-                <GraphCard title='product value by category' graphData={valueGraphData}/>
-                <GraphCard title='product value by warehouse' graphData={valueGraphData}/>
-            </GraphContainer>
         </StyledOverview>
     )
 }
@@ -52,6 +46,7 @@ export default function AllWarehouseOverview(props) {
 
 const StyledOverview = styled.div`
     height: 100%;
+    width: 100%;
 `
 
 const InfoContainer = styled.div`
@@ -59,7 +54,7 @@ const InfoContainer = styled.div`
     justify-content: space-evenly;
     align-items: center;
     height: 20%;
-    border: 2px solid red;
+
 `
 
 const GraphContainer = styled.div`

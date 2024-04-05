@@ -9,7 +9,7 @@ export default function GraphCard(props) {
 
     return(
         <StyledGraphCard>
-            <div>{title}</div>
+            <StyledTitle>{title}</StyledTitle>
             <PieChart
                 series={[
                     {
@@ -25,7 +25,7 @@ export default function GraphCard(props) {
                     },
                 ]}
                 width={400}
-                height={200}
+                height={215}
             />
         </StyledGraphCard>
     )
@@ -38,7 +38,11 @@ const StyledGraphCard = styled.div`
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    height: 75%;
-    width: 40%;
-    border: 2px solid red;
+    height: 80%;
+    width: 45%;
+`
+
+const StyledTitle = styled.div`
+    font-weight: bold;
+    margin-right: 85px;
 `

@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.skillstorm.warehouseinventoryproject.models.Inventory;
 import com.skillstorm.warehouseinventoryproject.services.InventoryService;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/inventory")
@@ -28,7 +31,7 @@ public class InventoryController {
 
     // create item in inventory
     @PostMapping
-    public ResponseEntity<Inventory> createItem(@RequestBody Inventory item) {
+    public ResponseEntity<Inventory> createItem(@Valid @RequestBody Inventory item) {
         Inventory newItem = inventoryService.createItem(item);
         return new ResponseEntity<Inventory>(newItem, HttpStatus.CREATED);
     }
@@ -42,7 +45,7 @@ public class InventoryController {
 
     // view all items in one warehouse
     @GetMapping("/warehouse-inventory/{warehouseId}")
-    public ResponseEntity<List<Inventory>> getInventoryByWarehouseId(@PathVariable int warehouseId) {
+    public ResponseEntity<List<Inventory>> getInventoryByWarehouseId(@PathVariable @Positive int warehouseId) {
         List<Inventory> inventory = inventoryService.getInventoryByWarehouseId(warehouseId);
         return new ResponseEntity<List<Inventory>>(inventory, HttpStatus.OK);
     }
@@ -56,7 +59,7 @@ public class InventoryController {
 
     // update item by id
     @PutMapping
-    public ResponseEntity<Inventory> updateItem(@RequestBody Inventory item) {
+    public ResponseEntity<Inventory> updateItem(@Valid @RequestBody Inventory item) {
         Inventory updatedItem = inventoryService.updateItem(item);
 
         return new ResponseEntity<Inventory>(updatedItem, HttpStatus.OK);
@@ -64,7 +67,7 @@ public class InventoryController {
 
     // delete item by id
     @DeleteMapping
-    public ResponseEntity<Integer> deleteItem(@RequestBody Inventory item) {
+    public ResponseEntity<Integer> deleteItem(@Valid @RequestBody Inventory item) {
         inventoryService.deleteItem(item);
         return ResponseEntity.noContent().build();
     }

@@ -6,7 +6,7 @@ export default function InfoCard(props) {
     return(
         <StyledInfoCard>
             <div>{category}</div>
-            <div>{data}</div>
+            <h1>{data}</h1>
         </StyledInfoCard>
     )
 }
@@ -16,9 +16,9 @@ export default function InfoCard(props) {
 const StyledInfoCard = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
     height: 75%;
     width: 30%;
-    border: 2px solid red;
+    box-shadow: 0 2px 10px gray;
 `

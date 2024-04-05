@@ -18,7 +18,7 @@ export default function MainContent(props) {
 const Container = styled.div`
     display: flex;
     justify-content: center;
-    background-color: lightgrey;
+    background-color: white;
 `
 
 // A column with a min and max width for the website's main content
@@ -27,11 +27,13 @@ const ContentColumn = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     max-width: 75rem;
     min-width: 20rem;
     min-height: 20rem;
     height: 100%;
     width: 100%;
+    box-shadow: 0 2px 20px gray;
 `
 
 // Where the main content will be displayed

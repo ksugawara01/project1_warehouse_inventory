@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "fruit")
@@ -17,19 +18,25 @@ public class Fruit {
     private int fruitId;
 
     @Column(name = "fruit_name")
+    @NotNull
     private String fruitName;
 
     @Column
+    @NotNull
     private double price;
 
     @Column(name = "low_stock")
-    @Min(0)
+    @Min(1)
+    @NotNull
     private int lowStock; // indicates what value consistutes this fruit being low stock
 
     @Column(name = "high_stock")
+    @Min(1)
+    @NotNull
     private int highStock; // indicates what value consistutes this fruit being high stock
 
     @Column(name = "graph_color")
+    @NotNull
     private String graphColor; // determines the color that the fruit will appear in the capacity graph
 
     public Fruit() {}

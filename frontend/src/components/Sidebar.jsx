@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -16,7 +15,7 @@ import '../radix-styles/sidebar-scroll-area.css'
 import '../radix-styles/sidebar-accordion.css'
 import classNames from 'classnames'
 import { ChevronDownIcon } from '@radix-ui/react-icons'
-import EditWarehouseModal from './EditWarehouseModal';
+import EditWarehouseModal from './EditWarehouseModal'
 
 export default function Sidebar(props) {
     const { warehouseList, setWarehouseList } = props
@@ -40,18 +39,23 @@ export default function Sidebar(props) {
         <StyledSidebar>
             <ScrollArea.Root className="ScrollAreaRootSA">
                 <ScrollArea.Viewport className="ScrollAreaViewportSA">
-                    <Link to='/'> Overview </Link>
-                    <Link to='/fruit-information'> Fruit information </Link>
-                    <AddWarehouseModal warehouseList={warehouseList} setWarehouseList={setWarehouseList}></AddWarehouseModal>
-                    <h4>Warehouse List</h4>
+                    
+                    <StyledDiv>
+                        <StyledLink to='/'>Overview</StyledLink>
+                        <StyledLink to='/fruit-information'> Fruit Types </StyledLink>
+                    </StyledDiv>
+                    
+                        <AddWarehouseModal warehouseList={warehouseList} setWarehouseList={setWarehouseList}></AddWarehouseModal>
+                        
+                   
                     <Accordion.Root className="AccordionRoot" type="single" defaultValue="item-1" collapsible>
 
                     {warehouseList.map( warehouse => {
                         return <Accordion.Item key={warehouse.warehouseId} className="AccordionItem" value={warehouse.warehouseId}>
                             <AccordionTrigger>{warehouse.warehouseName}</AccordionTrigger>
                             <AccordionContent>
-                                <AccordionContent><Link to={`/warehouse-overview/${warehouse.warehouseId}`}> Overview </Link></AccordionContent>
-                                <AccordionContent><Link to={`/warehouse-inventory/${warehouse.warehouseId}`}> Inventory </Link></AccordionContent>
+                                <AccordionContent><StyledAccordionLink to={`/warehouse-overview/${warehouse.warehouseId}`}> Overview </StyledAccordionLink></AccordionContent>
+                                <AccordionContent><StyledAccordionLink to={`/warehouse-inventory/${warehouse.warehouseId}`}> Inventory </StyledAccordionLink></AccordionContent>
                                 <AccordionContent><EditWarehouseModal warehouse={warehouse} warehouseList={warehouseList} setWarehouseList={setWarehouseList}/></AccordionContent>
                                 <AccordionContent><button onClick={handleDelete(warehouse)}>Delete Warehouse</button></AccordionContent>
                             </AccordionContent>
@@ -100,5 +104,34 @@ const AccordionTrigger = React.forwardRef(({ children, className, ...props }, fo
 // Styled Components
 
 const StyledSidebar = styled.div`
-    width: 25%;
+    width: 300px;
+`
+
+const StyledLink = styled(Link)`
+    margin: 0px;
+    padding: 10px;
+    text-decoration: none;
+    font-size: 36px;
+    font-weight: bold;
+    color: black;
+    transition: background-color 0.3s ease;
+    &:hover {
+        background-color: #66afd6;
+        cursor: pointer;
+    }
+`
+
+  const StyledAccordionLink = styled(Link)`
+
+        text-decoration: none;
+
+        color: black;
+        &:hover {
+            color: grey;
+            cursor: pointer;
+        }
+`
+const StyledDiv = styled.div`
+    display: flex;
+    flex-direction: column;
 `

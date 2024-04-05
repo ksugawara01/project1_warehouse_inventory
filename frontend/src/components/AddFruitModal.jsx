@@ -3,6 +3,8 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import Modal from 'react-overlays/Modal'
 
+import StyledForm from './StyledForm'
+
 import fruitService from '../services/fruits'
 
 export default function AddFruitModal(props) {
@@ -58,30 +60,26 @@ export default function AddFruitModal(props) {
         const handleSubmit = (event) => {
             event.preventDefault()
     
-            // Check if the form warehouse name already exists in the list of warehouses
+            // Input Validation
             const isDuplicateName = fruitsList.some(fruit => fruit.fruitName === formData.fruitName)
-
-            // Check if the quantity is valid
             const isValidPrice = ((typeof(Number(formData.price)) === 'number') && Number(formData.price) > 0)
-            // Check if the quantity is valid
             const isValidLS = ((typeof(Number(formData.lowStock)) === 'number') && Number(formData.lowStock) > 0)
-            // Check if the quantity is valid
             const isValidHS = ((typeof(Number(formData.highStock)) === 'number') && Number(formData.highStock) > 0)
     
-            console.log('isDuplicateName', isDuplicateName)
             const { fruitName, price, lowStock, highStock, graphColor } = formData
     
-            // If all of these values are true(not null or false) then submit the data to the backend
+            // If all of these values are true (not null or false) then submit the data to the backend
             if ( fruitName && price && lowStock && highStock && graphColor && isValidPrice && isValidLS && isValidHS) {
     
                 // Send post request to the backend to create the warehouse in the database
                 fruitService.createFruit(formData)
                     .then((newFruit) => {
-                        // append the newly created warehouse to the warehouseList
+                        // Append the newly created warehouse to the warehouseList
                         setFruitsList([
                             ...fruitsList,
                             newFruit
                         ]);
+                        // Reset form data
                         setFormData({
                             fruitName: null,
                             price: null,
@@ -128,13 +126,13 @@ export default function AddFruitModal(props) {
 
     return (
         <div className="modal-example">
-            <button
+            <StyledButton
                 type="button"
                 className="btn btn-primary mb-4"
                 onClick={() => setShow(true)}
             >
-                Add a Fruit
-            </button>
+                Add a Fruit Type
+            </StyledButton>
 
             <StyledModal
                 show={show}
@@ -142,8 +140,8 @@ export default function AddFruitModal(props) {
                 renderBackdrop={renderBackdrop}
                 aria-labelledby="modal-label"
             >
-                <form>
-                    <h2>Create Fruit</h2>
+                <StyledForm>
+                    <h1>Add a Fruit Type</h1>
 
                     <label >Fruit Name:</label><br/>
                     <input type='text' id='fruitName' name='fruitName' onChange={handleFormChange}></input><br/>
@@ -164,8 +162,8 @@ export default function AddFruitModal(props) {
 
                     {displayError ? errorMessage.map((message) => <ErrorMessage key={ message }>{ message }</ErrorMessage>) : null}
 
-                    <button onClick={handleSubmit}>submit</button>
-                </form>
+                    <StyledButton onClick={handleSubmit}>submit</StyledButton>
+                </StyledForm>
             </StyledModal>
         </div>
     );
@@ -181,13 +179,32 @@ const StyledModal = styled(Modal)`
     width: 400px;
     height: 600px;
     z-index: 1040;
-    top: 25%;
-    left: 50%;
+    top: 15%;
+    left: 40%;
     border: 1px solid #e5e5e5;
     background-color: white;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     padding: 20px;
 `;
+
+const StyledButton = styled.button`
+    background-color: #0063DB;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 20px;
+    margin: 5px;
+    margin-left: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #0082C8;
+        cursor: pointer;
+    }
+`
 
 const Backdrop = styled("div")`
     position: fixed;

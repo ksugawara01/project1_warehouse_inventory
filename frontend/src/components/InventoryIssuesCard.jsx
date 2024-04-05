@@ -9,23 +9,21 @@ import '../radix-styles/table-scroll-area.css';
 export default function InventoryIssuesCard(props) {
     const { inventory } = props
 
-    
     return(
         <StyledInventoryIssuesCard>
             <div>Stocking Issues:</div>
             <ScrollArea.Root className="ScrollAreaRoot">
                 <ScrollArea.Viewport className="ScrollAreaViewport">
-                    <div>{inventory.map(item => {
+                    {inventory.map(item => {
                         if (item.quantity === 0) {
-                            return <InventoryIssue key={item.inventoryId} >{item.fruitName}s are out of stock</InventoryIssue>
-                        } else if (item.quantity <= item.lowStockValue) {
-                            return <InventoryIssue key={item.inventoryId} >{item.fruitName}s are low on stock</InventoryIssue>
-                        } else if (item.quantity >= item.highStockValue) {
-                            return <InventoryIssue key={item.inventoryId} >{item.fruitName}s are overstocked</InventoryIssue>
+                            return <InventoryIssue key={item.inventoryId} >{item.fruitName}: out of stock</InventoryIssue>
+                        } else if (item.quantity <= item.lowStock) {
+                            return <InventoryIssue key={item.inventoryId} >{item.fruitName}: low on stock</InventoryIssue>
+                        } else if (item.quantity >= item.highStock) {
+                            return <InventoryIssue key={item.inventoryId} >{item.fruitName}: overstocked</InventoryIssue>
                         }
-
                         return;
-                    })}</div>
+                    })}
                 </ScrollArea.Viewport>
                 <ScrollArea.Scrollbar className="ScrollAreaScrollbar" orientation="vertical">
                     <ScrollArea.Thumb className="ScrollAreaThumb" />
@@ -48,9 +46,11 @@ const StyledInventoryIssuesCard = styled.div`
     align-items: center;
     height: 75%;
     width: 30%;
-    border: 2px solid red;
+    box-shadow: 0 2px 10px gray;
 `
 
 const InventoryIssue = styled.div`
-    font-size: 40px;
+    font-size: 16px;
+    margin: 4px;
+    margin-left: 10px;
 `

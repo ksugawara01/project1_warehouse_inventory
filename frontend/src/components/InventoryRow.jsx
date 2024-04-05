@@ -24,10 +24,10 @@ export default function InventoryRow(props) {
     }
     return (
         <tr>
-            <td>{item.fruitName}</td>
-            <td>{item.quantity}</td>
-            <td>${item.quantity * item.price}</td>
-            <td>
+            <StyledTD >{item.fruitName}</StyledTD>
+            <StyledTD >{item.quantity}</StyledTD>
+            <StyledTD >${item.quantity * item.price}</StyledTD>
+            <StyledTD >
                 <EditItemModal item={item}
                     inventory={inventory}
                     setInventory={setInventory}
@@ -36,9 +36,35 @@ export default function InventoryRow(props) {
                     warehouseList={warehouseList}
                     combinedInventory={combinedInventory}
                 />
-            </td>
-            <td><button onClick={handleDelete}>Delete</button></td>
+            </StyledTD>
+            <StyledTD ><StyledButton onClick={handleDelete}>Delete</StyledButton></StyledTD>
         </tr>
     )
 
 }
+
+// Styled Components
+
+const StyledButton = styled.button`
+    background-color: #8a0b0b;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 15px 20px;
+    margin: 5px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #b81212;
+        cursor: pointer;
+    }
+`
+
+const StyledTD = styled.td`
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-collapse: collapse;
+`

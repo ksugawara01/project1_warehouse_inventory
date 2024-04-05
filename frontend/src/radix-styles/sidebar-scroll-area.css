@@ -8,7 +8,7 @@
   }
   
   .ScrollAreaViewportSA {
-    background-color: lightgrey;
+    background-color: #bcdaff;
     width: 100%;
     height: 100%;
     border-radius: inherit;
@@ -37,7 +37,7 @@
   
   .ScrollAreaThumbSA{
     flex: 1;
-    background: pink;
+    background: #0063DB;
     border-radius: var(--scrollbar-size);
     position: relative;
   }
@@ -66,11 +66,11 @@
   }
   
   .Tag {
-    color: pink;
+    color: #0063DB;
     font-size: 13px;
     line-height: 18px;
     margin-top: 10px;
-    border-top: 1px solid pink;
+    border-top: 1px solid #0063DB;
     padding-top: 10px;
   }
   

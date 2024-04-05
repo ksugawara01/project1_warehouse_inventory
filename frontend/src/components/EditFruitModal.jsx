@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Modal from 'react-overlays/Modal'
 
 import fruitService from '../services/fruits'
+import StyledForm from './StyledForm'
 
 export default function EditFruitModal(props) {
     const { fruit, fruitsList, setFruitsList } = props
@@ -24,7 +25,7 @@ export default function EditFruitModal(props) {
 
     const renderBackdrop = (props) => <Backdrop {...props} />
 
-    // colors that can be used for graph color
+    // colors that will be used as select options
     const colors = [
         'aliceblue',
         'aqua',
@@ -112,13 +113,13 @@ export default function EditFruitModal(props) {
 
     return (
         <div className="modal-example">
-            <button
+            <StyledButton
                 type="button"
                 className="btn btn-primary mb-4"
                 onClick={() => setShow(true)}
             >
                 Edit
-            </button>
+            </StyledButton>
 
             <StyledModal
                 show={show}
@@ -126,8 +127,8 @@ export default function EditFruitModal(props) {
                 renderBackdrop={renderBackdrop}
                 aria-labelledby="modal-label"
             >
-                <form>
-                    <h2>Edit Fruit</h2>
+                <StyledForm>
+                    <h1>Edit Fruit</h1>
 
                     <label >Fruit Name:</label><br/>
                     <input type='text' id='fruitName' name='fruitName' value={formData.fruitName} onChange={handleFormChange} readOnly></input><br/>
@@ -148,8 +149,8 @@ export default function EditFruitModal(props) {
 
                     {displayError ? errorMessage.map((message) => <ErrorMessage key={ message }>{ message }</ErrorMessage>) : null}
 
-                    <button onClick={handleSubmit}>submit</button>
-                </form>
+                    <StyledButton onClick={handleSubmit}>submit</StyledButton>
+                </StyledForm>
             </StyledModal>
         </div>
     );
@@ -165,13 +166,31 @@ const StyledModal = styled(Modal)`
     width: 400px;
     height: 600px;
     z-index: 1040;
-    top: 25%;
-    left: 50%;
+    top: 15%;
+    left: 40%;
     border: 1px solid #e5e5e5;
     background-color: white;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     padding: 20px;
 `;
+
+const StyledButton = styled.button`
+    background-color: #0063DB;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 15px 25px;
+    margin: 5px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #0082C8;
+        cursor: pointer;
+    }
+`
 
 const Backdrop = styled("div")`
     position: fixed;

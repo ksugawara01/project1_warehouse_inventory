@@ -1,7 +1,7 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
+import { StyledTable, FlexDiv } from './StyledTable'
 
 // radix ui component
 import * as ScrollArea from '@radix-ui/react-scroll-area'
@@ -34,16 +34,19 @@ export default function WarehouseInventory(props) {
     return (
         <StyledWarehouseInventory>
             <h1>{warehouseName}</h1>
-            <div>{address}</div>
-            <h2>Inventory</h2>
-            <AddItemModal
-                warehouseId={warehouseId}
-                inventory={inventory}
-                setInventory={setInventory}
-                fruitsList={fruitsList}
-                warehouseList={warehouseList}
-                combinedInventory={combinedInventory}
-            />
+            <h4>{address}</h4>
+            <FlexDiv>
+                <h1>Inventory</h1>
+            
+                <AddItemModal
+                    warehouseId={warehouseId}
+                    inventory={inventory}
+                    setInventory={setInventory}
+                    fruitsList={fruitsList}
+                    warehouseList={warehouseList}
+                    combinedInventory={combinedInventory}
+                />
+            </FlexDiv>
             <ScrollArea.Root className="ScrollAreaRoot">
                 <ScrollArea.Viewport className="ScrollAreaViewport">
                     {/*
@@ -55,12 +58,14 @@ export default function WarehouseInventory(props) {
                         </div>
                     */}
                     <TableContainer>
-                        <table>
+                        <StyledTable>
                             <thead>
                                 <tr>
-                                    <th>Fruit</th>
-                                    <th>Quantity</th>
-                                    <th>Total Value</th>
+                                    <th style={{width: '350px'}}>Fruit</th>
+                                    <th style={{width: '250px'}}>Quantity</th>
+                                    <th style={{width: '350px'}}>Total Value</th>
+                                    <th style={{width: '150px'}}></th>
+                                    <th style={{width: '150px'}}></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -77,7 +82,7 @@ export default function WarehouseInventory(props) {
                                     />
                                 })}
                             </tbody>
-                        </table>
+                        </StyledTable>
                     </TableContainer>
                 </ScrollArea.Viewport>
                 <ScrollArea.Scrollbar className="ScrollAreaScrollbar" orientation="vertical">

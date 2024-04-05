@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Modal from 'react-overlays/Modal'
 
 import warehouseService from'../services/warehouses'
+import StyledForm from './StyledForm'
 
 export default function EditWarehouseModal(props) {
     const {warehouse, warehouseList, setWarehouseList} = props
@@ -85,7 +86,7 @@ export default function EditWarehouseModal(props) {
                 renderBackdrop={renderBackdrop}
                 aria-labelledby="modal-label"
             >
-                <form>
+                <StyledForm>
                     <h2>Edit Warehouse</h2>
 
                     <label >Warehouse Name:</label><br/>
@@ -99,8 +100,8 @@ export default function EditWarehouseModal(props) {
                     
                     {displayError ? errorMessage.map((message) => <ErrorMessage key={ message }>{ message }</ErrorMessage>) : null}
 
-                    <button onClick={handleSubmit}>submit</button>
-                </form>
+                    <StyledButton onClick={handleSubmit}>submit</StyledButton>
+                </StyledForm>
             </StyledModal>
         </div>
     )
@@ -114,10 +115,10 @@ export default function EditWarehouseModal(props) {
 const StyledModal = styled(Modal)`
     position: fixed;
     width: 400px;
-    height: 600px;
+    height: 450px;
     z-index: 1040;
     top: 25%;
-    left: 50%;
+    left: 40%;
     border: 1px solid #e5e5e5;
     background-color: white;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
@@ -137,4 +138,22 @@ const Backdrop = styled("div")`
 
 const ErrorMessage = styled.div`
     color: red;
+`
+
+const StyledButton = styled.button`
+    background-color: #0063DB;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 15px 25px;
+    margin: 5px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #0082C8;
+        cursor: pointer;
+    }
 `

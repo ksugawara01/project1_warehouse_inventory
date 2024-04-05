@@ -1,7 +1,7 @@
 
 .ScrollAreaRoot {
   width: 100%;
-  height: 100%;
+  height: 65%;
   border-radius: 4px;
   overflow: hidden;
   background-color: white;
@@ -21,11 +21,11 @@
   /* disable browser handling of all panning and zooming gestures on touch devices */
   touch-action: none;
   padding: 2px;
-  background: black;
+  background: lightgrey;
   transition: background 160ms ease-out;
 }
 .ScrollAreaScrollbar:hover {
-  background: black;
+  background: lightgrey;
 }
 .ScrollAreaScrollbar[data-orientation='vertical'] {
   width: var(--scrollbar-size);
@@ -37,7 +37,7 @@
 
 .ScrollAreaThumb {
   flex: 1;
-  background: pink;
+  background: #0063DB;
   border-radius: var(--scrollbar-size);
   position: relative;
 }
@@ -55,7 +55,7 @@
 }
 
 .ScrollAreaCorner {
-  background: black;
+  background: grey;
 }
 
 .Text {

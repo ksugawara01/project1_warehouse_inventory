@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Modal from 'react-overlays/Modal'
 
 import inventoryService from'../services/inventory'
+import StyledForm from './StyledForm'
 
 export default function AddItemModal(props) {
     const {inventory, setInventory, fruitsList, warehouseId, warehouseList, combinedInventory} = props
@@ -105,13 +106,13 @@ export default function AddItemModal(props) {
 
     return (
         <div className="modal-example">
-            <button
+            <StyledButton
                 type="button"
                 className="btn btn-primary mb-4"
                 onClick={() => setShow(true)}
             >
-                Add Fruit
-            </button>
+                Add a Fruit
+            </StyledButton>
 
             <StyledModal
                 show={show}
@@ -119,7 +120,7 @@ export default function AddItemModal(props) {
                 renderBackdrop={renderBackdrop}
                 aria-labelledby="modal-label"
             >
-                <form>
+                <StyledForm>
                     <h2>Add Fruit to Warehouse</h2>
                     <label >Fruit:</label><br/>
                     <select id='fruitId' name='fruitId' defaultValue='' onChange={handleFormChange}>
@@ -131,8 +132,8 @@ export default function AddItemModal(props) {
                     
                     {displayError ? errorMessage.map((message) => <ErrorMessage key={ message }>{ message }</ErrorMessage>) : null}
 
-                    <button onClick={handleSubmit}>submit</button>
-                </form>
+                    <StyledButton onClick={handleSubmit}>submit</StyledButton>
+                </StyledForm>
             </StyledModal>
         </div>
     )
@@ -143,15 +144,34 @@ export default function AddItemModal(props) {
 const StyledModal = styled(Modal)`
     position: fixed;
     width: 400px;
-    height: 600px;
+    height: 350px;
     z-index: 1040;
     top: 25%;
-    left: 50%;
+    left: 40%;
     border: 1px solid #e5e5e5;
     background-color: white;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     padding: 20px;
 `;
+
+const StyledButton = styled.button`
+    background-color: #0063DB;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 20px;
+    margin: 5px;
+    margin-left: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #0082C8;
+        cursor: pointer;
+    }
+`
 
 const Backdrop = styled("div")`
     position: fixed;

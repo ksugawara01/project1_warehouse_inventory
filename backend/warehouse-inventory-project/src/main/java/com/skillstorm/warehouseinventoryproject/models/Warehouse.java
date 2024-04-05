@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "warehouse")
@@ -16,12 +18,16 @@ public class Warehouse {
     private int warehouseId;
 
     @Column
+    @NotNull
     private String address;
 
     @Column(name = "warehouse_name")
+    @NotNull
     private String warehouseName;
 
     @Column(name="max_capacity")
+    @NotNull
+    @Min(0)
     private int maxCapacity;
 
     public Warehouse() {}
