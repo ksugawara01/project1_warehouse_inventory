@@ -3,6 +3,12 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+// Services
+import warehouseService from '../services/warehouses'
+
+// Components
+import AddWarehouseModal from './AddWarehouseModal'
+
 // Radix UI
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 import * as Accordion from '@radix-ui/react-accordion'
@@ -10,63 +16,57 @@ import '../radix-styles/sidebar-scroll-area.css'
 import '../radix-styles/sidebar-accordion.css'
 import classNames from 'classnames'
 import { ChevronDownIcon } from '@radix-ui/react-icons'
+import EditWarehouseModal from './EditWarehouseModal';
 
-export default function Sidebar() {
+export default function Sidebar(props) {
+    const { warehouseList, setWarehouseList } = props
 
-    //const [warehouseList, setWarehouseList] = useState([]);
-
-    // dummy data
-    const warehouseList = [
-        {
-            warehouseId: 1,
-            warehouseName: 'Mechanicsburg Fruit Warehouse',
-            warehouseAddress: '123 street'
-        },
-        {
-            warehouseId: 2,
-            warehouseName: 'Fairborn Fruit Warehouse',
-            warehouseAddress: '456 something street, Fairborn, OH, 45324'
-        },
-        {
-            warehouseId: 3,
-            warehouseName: 'Lake Mary Fruit Warehouse',
-            warehouseAddress: 'lake mary address'
-        },
-        {
-            warehouseId: 4,
-            warehouseName: 'Gilbert Fruit Warehouse',
-            warehouseAddress: 'an arizona address'
+    // Event handler used to delete a warehouse
+    const handleDelete = (warehouse) => () => {
+        const confirmed = window.confirm('Are you sure you want to delete this item?')
+        if (confirmed) {
+            const updatedWarehouseList = warehouseList.filter((w) => w.warehouseId !== warehouse.warehouseId)
+            warehouseService.deleteWarehouse(warehouse)
+                .then(
+                    setWarehouseList(updatedWarehouseList)
+                )
+                .catch((e) => {
+                    console.log('e', e)
+                })
         }
-    ]
+    }
+
     return(
         <StyledSidebar>
-            <ScrollArea.Root className="ScrollAreaRoot">
-                <ScrollArea.Viewport className="ScrollAreaViewport">
-
+            <ScrollArea.Root className="ScrollAreaRootSA">
+                <ScrollArea.Viewport className="ScrollAreaViewportSA">
                     <Link to='/'> Overview </Link>
                     <Link to='/fruit-information'> Fruit information </Link>
-                    <div>Warehouse List <button>add new warehouse</button></div>
+                    <AddWarehouseModal warehouseList={warehouseList} setWarehouseList={setWarehouseList}></AddWarehouseModal>
+                    <h4>Warehouse List</h4>
                     <Accordion.Root className="AccordionRoot" type="single" defaultValue="item-1" collapsible>
 
                     {warehouseList.map( warehouse => {
-                        return <Accordion.Item className="AccordionItem" value={warehouse.warehouseId}>
+                        return <Accordion.Item key={warehouse.warehouseId} className="AccordionItem" value={warehouse.warehouseId}>
                             <AccordionTrigger>{warehouse.warehouseName}</AccordionTrigger>
                             <AccordionContent>
                                 <AccordionContent><Link to={`/warehouse-overview/${warehouse.warehouseId}`}> Overview </Link></AccordionContent>
                                 <AccordionContent><Link to={`/warehouse-inventory/${warehouse.warehouseId}`}> Inventory </Link></AccordionContent>
+                                <AccordionContent><EditWarehouseModal warehouse={warehouse} warehouseList={warehouseList} setWarehouseList={setWarehouseList}/></AccordionContent>
+                                <AccordionContent><button onClick={handleDelete(warehouse)}>Delete Warehouse</button></AccordionContent>
                             </AccordionContent>
                         </Accordion.Item>
                     })}
                 
                 </Accordion.Root>
                 </ScrollArea.Viewport>
-                <ScrollArea.Scrollbar className="ScrollAreaScrollbar" orientation="vertical">
-                    <ScrollArea.Thumb className="ScrollAreaThumb" />
+                <ScrollArea.Scrollbar className="ScrollAreaScrollbarSA" orientation="vertical">
+                    <ScrollArea.Thumb className="ScrollAreaThumbSA" />
                 </ScrollArea.Scrollbar>
-                <ScrollArea.Scrollbar className="ScrollAreaScrollbar" orientation="horizontal">
-                    <ScrollArea.Thumb className="ScrollAreaThumb" />
+                <ScrollArea.Scrollbar className="ScrollAreaScrollbarSA" orientation="horizontal">
+                    <ScrollArea.Thumb className="ScrollAreaThumbSA" />
                 </ScrollArea.Scrollbar>
-                <ScrollArea.Corner className="ScrollAreaCorner" />
+                <ScrollArea.Corner className="ScrollAreaCornerSA" />
             </ScrollArea.Root>
         </StyledSidebar>
     );
@@ -100,7 +100,5 @@ const AccordionTrigger = React.forwardRef(({ children, className, ...props }, fo
 // Styled Components
 
 const StyledSidebar = styled.div`
-    border: 2px solid orange;
     width: 25%;
-    flex: 1;
 `

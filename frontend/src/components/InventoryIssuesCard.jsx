@@ -5,60 +5,17 @@ import styled from 'styled-components'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 import '../radix-styles/table-scroll-area.css';
 
+// Displays issues related to inventory stock
 export default function InventoryIssuesCard(props) {
-    //const { inventory } = props;
+    const { inventory } = props
 
-    // dummy data
-    const inventory = [
-        {
-            inventoryId: 1,
-            fruitName: 'apple',
-            quantity: 350,
-            lowStockValue: 500,
-            highStockValue: 5000
-        },
-        {
-            inventoryId: 2,
-            fruitName: 'banana',
-            quantity: 6000,
-            lowStockValue: 500,
-            highStockValue: 5000
-        },        
-        {
-            inventoryId: 3,
-            fruitName: 'orange',
-            quantity: 0,
-            lowStockValue: 500,
-            highStockValue: 5000
-        },        
-        {
-            inventoryId: 4,
-            fruitName: 'pear',
-            quantity: 700,
-            lowStockValue: 500,
-            highStockValue: 5000
-        },
-        {
-            inventoryId: 5,
-            fruitName: 'peach',
-            quantity: 3500,
-            lowStockValue: 500,
-            highStockValue: 5000
-        },        
-        {
-            inventoryId: 6,
-            fruitName: 'watermelon',
-            quantity: 200,
-            lowStockValue: 500,
-            highStockValue: 5000
-        }
-    ]
+    
     return(
         <StyledInventoryIssuesCard>
             <div>Stocking Issues:</div>
-            <ScrollArea.Root className="ScrollAreaRoot" type='always'>
+            <ScrollArea.Root className="ScrollAreaRoot">
                 <ScrollArea.Viewport className="ScrollAreaViewport">
-                    {inventory.map(item => {
+                    <div>{inventory.map(item => {
                         if (item.quantity === 0) {
                             return <InventoryIssue key={item.inventoryId} >{item.fruitName}s are out of stock</InventoryIssue>
                         } else if (item.quantity <= item.lowStockValue) {
@@ -68,7 +25,7 @@ export default function InventoryIssuesCard(props) {
                         }
 
                         return;
-                    })}
+                    })}</div>
                 </ScrollArea.Viewport>
                 <ScrollArea.Scrollbar className="ScrollAreaScrollbar" orientation="vertical">
                     <ScrollArea.Thumb className="ScrollAreaThumb" />

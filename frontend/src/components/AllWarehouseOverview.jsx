@@ -4,18 +4,45 @@ import styled from 'styled-components'
 import InfoCard from './InfoCard'
 import GraphCard from './GraphCard'
 
-export default function AllWarehouseOverview() {
+export default function AllWarehouseOverview(props) {
+    const { warehouseCount, combinedInventory } = props;
+
+    let fruitCount = 0;
+    let fruitValue = 0;
+
+    if (combinedInventory.length > 0) {
+        // Reduce function to sum up the count of all fruit in the inventory
+        fruitCount = combinedInventory.reduce((accumulator, item) => {
+            return accumulator + item.quantity;
+        }, 0)
+
+        // Reduce function to sum up the value of all fruit in the inventory
+        fruitValue = combinedInventory.reduce((accumulator, item) => {
+            return accumulator + (item.quantity * item.price);
+        }, 0)
+    }
+
+    // Data to pass to pie charts
+    const valueGraphData = combinedInventory.map((item) => {
+        return {
+            id: item.inventoryId,
+            value: item.price * item.quantity,
+            label: item.fruitName,
+            color: item.graphColor
+        }
+    })
+
     return(
         <StyledOverview>
             <h1>Overview</h1>
             <InfoContainer>
-                <InfoCard category='Count of all fruit' data='1300 fruit' />
-                <InfoCard category='value of fruit' data='$12035' />
-                <InfoCard category='# of Warehouses' data='6 warehouses' />
+                <InfoCard category='Count of all fruit' data={`${fruitCount} Fruit`} />
+                <InfoCard category='value of fruit' data={`$${fruitValue}`} />
+                <InfoCard category='# of Warehouses' data={`${warehouseCount} Warehouses`} />
             </InfoContainer>
             <GraphContainer>
-                <GraphCard title='product value by category'/>
-                <GraphCard title='product value by warehouse'/>
+                <GraphCard title='product value by category' graphData={valueGraphData}/>
+                <GraphCard title='product value by warehouse' graphData={valueGraphData}/>
             </GraphContainer>
         </StyledOverview>
     )
@@ -24,7 +51,6 @@ export default function AllWarehouseOverview() {
 // Styled Components
 
 const StyledOverview = styled.div`
-    border: 10px solid red;
     height: 100%;
 `
 

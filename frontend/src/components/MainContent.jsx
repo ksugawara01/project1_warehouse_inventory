@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 
 export default function MainContent(props) {
     return (
@@ -11,14 +11,14 @@ export default function MainContent(props) {
 
             </ContentColumn>
         </Container>
-    );
+    )
 }
 
 // A flex container to keep the content column centered
 const Container = styled.div`
     display: flex;
     justify-content: center;
-    border: 5px solid black;
+    background-color: lightgrey;
 `
 
 // A column with a min and max width for the website's main content
@@ -32,13 +32,12 @@ const ContentColumn = styled.div`
     min-height: 20rem;
     height: 100%;
     width: 100%;
-    border: 15px solid blue;
 `
 
 // Where the main content will be displayed
 const StyledMainContent = styled.div`
+    background-color: white;
     display: flex;
-    flex: 1;
+    flex: 3;
     width: 100%;
-    border: 2px solid green;
 `

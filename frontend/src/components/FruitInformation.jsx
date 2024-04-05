@@ -2,209 +2,25 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
+// Services
+import fruitService from '../services/fruits'
+
 // radix ui component
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 import '../radix-styles/table-scroll-area.css';
 
+// Components
 import FruitRow from './FruitRow'
 import TableContainer from './TableContainer'
+import AddFruitModal from './AddFruitModal'
 
-export default function FruitInformation() {
-
-    const dummyData = [
-        {
-            fruitId: 1,
-            fruitName: 'apple',
-            price: 3.14,
-            lowStock: 200,
-            highStock: 2000,
-            graphColor: 'red'
-        },
-        {
-            fruitId: 2,
-            fruitName: 'banana',
-            price: 1.23,
-            lowStock: 300,
-            highStock: 2400,
-            graphColor: 'yellow'
-        },
-        {
-            fruitId: 3,
-            fruitName: 'grapes',
-            price: 4.10,
-            lowStock: 500,
-            highStock: 1200,
-            graphColor: 'purple'
-        },
-        {
-            fruitId: 4,
-            fruitName: 'apple',
-            price: 3.14,
-            lowStock: 200,
-            highStock: 2000,
-            graphColor: 'red'
-        },
-        {
-            fruitId: 5,
-            fruitName: 'banana',
-            price: 1.23,
-            lowStock: 300,
-            highStock: 2400,
-            graphColor: 'yellow'
-        },
-        {
-            fruitId: 6,
-            fruitName: 'grapes',
-            price: 4.10,
-            lowStock: 500,
-            highStock: 1200,
-            graphColor: 'purple'
-        },
-        {
-            fruitId: 7,
-            fruitName: 'apple',
-            price: 3.14,
-            lowStock: 200,
-            highStock: 2000,
-            graphColor: 'red'
-        },
-        {
-            fruitId: 8,
-            fruitName: 'banana',
-            price: 1.23,
-            lowStock: 300,
-            highStock: 2400,
-            graphColor: 'yellow'
-        },
-        {
-            fruitId: 9,
-            fruitName: 'grapes',
-            price: 4.10,
-            lowStock: 500,
-            highStock: 1200,
-            graphColor: 'purple'
-        },
-        {
-            fruitId: 10,
-            fruitName: 'apple',
-            price: 3.14,
-            lowStock: 200,
-            highStock: 2000,
-            graphColor: 'red'
-        },
-        {
-            fruitId: 11,
-            fruitName: 'banana',
-            price: 1.23,
-            lowStock: 300,
-            highStock: 2400,
-            graphColor: 'yellow'
-        },
-        {
-            fruitId: 12,
-            fruitName: 'grapes',
-            price: 4.10,
-            lowStock: 500,
-            highStock: 1200,
-            graphColor: 'purple'
-        },
-        {
-            fruitId: 13,
-            fruitName: 'apple',
-            price: 3.14,
-            lowStock: 200,
-            highStock: 2000,
-            graphColor: 'red'
-        },
-        {
-            fruitId: 14,
-            fruitName: 'banana',
-            price: 1.23,
-            lowStock: 300,
-            highStock: 2400,
-            graphColor: 'yellow'
-        },
-        {
-            fruitId: 15,
-            fruitName: 'grapes',
-            price: 4.10,
-            lowStock: 500,
-            highStock: 1200,
-            graphColor: 'purple'
-        },
-        {
-            fruitId: 16,
-            fruitName: 'apple',
-            price: 3.14,
-            lowStock: 200,
-            highStock: 2000,
-            graphColor: 'red'
-        },
-        {
-            fruitId: 17,
-            fruitName: 'banana',
-            price: 1.23,
-            lowStock: 300,
-            highStock: 2400,
-            graphColor: 'yellow'
-        },
-        {
-            fruitId: 18,
-            fruitName: 'grapes',
-            price: 4.10,
-            lowStock: 500,
-            highStock: 1200,
-            graphColor: 'purple'
-        },
-        {
-            fruitId: 19,
-            fruitName: 'apple',
-            price: 3.14,
-            lowStock: 200,
-            highStock: 2000,
-            graphColor: 'red'
-        },
-        {
-            fruitId: 20,
-            fruitName: 'banana',
-            price: 1.23,
-            lowStock: 300,
-            highStock: 2400,
-            graphColor: 'yellow'
-        },
-        {
-            fruitId: 21,
-            fruitName: 'grapes',
-            price: 4.10,
-            lowStock: 500,
-            highStock: 1200,
-            graphColor: 'purple'
-        }
-    ];
-
-    const [fruits, setFruits] = useState(dummyData);
-
-    // Get fruit information on load
-    useEffect(() => {
-        /*
-        if (loggedGroomer !== null) {
-            appointmentService.getGroomerAppointments(loggedGroomer)
-                .then(appointments => {
-                    setAppointments(appointments)
-                })
-        } else {
-        // If user is not logged in redirect to the login page
-            navigate('/login')
-        }
-        */
-
-
-    }, []);
-
+export default function FruitInformation(props) {
+    const {fruitsList, setFruitsList} = props;
+      
     return (
         <StyledFruitInformation>
             <h1>Fruits</h1>
-            <button>Add new fruit</button>
+            <AddFruitModal fruitsList={fruitsList} setFruitsList={setFruitsList}/>
             <ScrollArea.Root className="ScrollAreaRoot">
                 <ScrollArea.Viewport className="ScrollAreaViewport">
                     {/*
@@ -227,8 +43,8 @@ export default function FruitInformation() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {fruits.map(fruit => {
-                                    return <FruitRow key={fruit.fruitId} fruitName={fruit.fruitName} price={fruit.price} lowStock={fruit.lowStock} highStock={fruit.highStock} graphColor={fruit.graphColor} />
+                                {fruitsList.map(fruit => {
+                                    return <FruitRow key={fruit.fruitId} fruit={fruit} fruitsList={fruitsList} setFruitsList={setFruitsList} />
                                 })}
                             </tbody>
                         </table>

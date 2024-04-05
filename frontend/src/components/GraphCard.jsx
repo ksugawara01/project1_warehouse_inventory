@@ -5,21 +5,15 @@ import styled from 'styled-components'
 import { PieChart } from '@mui/x-charts/PieChart'
 
 export default function GraphCard(props) {
-
-
-    const dummyData = [
-        { id: 0, value: 10, label: 'orange', color: 'orange' },
-        { id: 1, value: 40, label: 'red' , color: 'red'},
-        { id: 5, value: 20, label: 'purple', color: 'purple' },
-    ];
     const { title, graphData } = props;
+
     return(
         <StyledGraphCard>
             <div>{title}</div>
             <PieChart
                 series={[
                     {
-                    data: dummyData,
+                    data: graphData,
                     innerRadius: 30,
                     outerRadius: 100,
                     paddingAngle: 3,

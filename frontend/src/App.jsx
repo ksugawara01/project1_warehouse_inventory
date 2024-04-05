@@ -1,8 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import {
-    Routes, Route, Link, useNavigate
-} from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import styled from 'styled-components'
 
 // Import services
@@ -12,7 +10,6 @@ import warehouseService from './services/warehouses'
 
 // Import components
 import Header from './components/Header'
-import Footer from './components/Footer'
 import MainContent from './components/MainContent'
 import Sidebar from './components/Sidebar'
 import FruitInformation from './components/FruitInformation'
@@ -22,50 +19,85 @@ import WarehouseOverview from './components/WarehouseOverview'
 
 export default function App() {
 
-/*
-    //DUMMY DATA
-    const warehouseId = 1;
+    // initialize state
+    const [warehouseList, setWarehouseList] = useState([])
+    const [inventory, setInventory] = useState([])
+    const [combinedInventory, setCombinedInventory] = useState([])
+    const [fruitsList, setFruitsList] = useState([])
 
-    const testFruit = {
-        fruitId: 10,
-        fruitName: "testfruit2",
-        price: 5.0,
-        lowStock: 50,
-        highStock: 500,
-        graphColor: "green"
-    }
-
-    const jsonTestFruit = JSON.stringify(testFruit)
-
+    // Execute on load to set initial state
     useEffect(() => {
+        warehouseService.getAllWarehouses()
+            .then((warehouses) => {
+                setWarehouseList(warehouses)
+            });
 
-        warehouseService.getWarehouseById(2)
-            .then((fruit) => {
-                console.log('fruitService create() ', fruit)
-            })
+        fruitService.getAllFruits()
+            .then((fruits) => {
+                setFruitsList(fruits)
 
-    }, [])*/
+            });
+
+        inventoryService.getInventory()
+            .then((items) => {
+                setInventory(items)
+                
+            });
+    }, [])
+
+    // Update combinedInventory
+    useEffect(() => {
+        const fruitNameMap = new Map()
+        const fruitPriceMap = new Map()
+        const graphColorMap = new Map()
+        const warehouseNameMap = new Map()
+
+        fruitsList.forEach(fruit => {
+            fruitNameMap.set(fruit.fruitId, fruit.fruitName)
+        })
+
+        fruitsList.forEach(fruit => {
+            fruitPriceMap.set(fruit.fruitId, fruit.price)
+        })
+
+        fruitsList.forEach(fruit => {
+            graphColorMap.set(fruit.fruitId, fruit.graphColor)
+        })
+
+        warehouseList.forEach(warehouse => {
+            warehouseNameMap.set(warehouse.warehouseId, warehouse.warehouseName)
+        })
+
+        console.log(fruitNameMap)
+
+        const newCombinedInventory = inventory.map(item => ({
+                ...item,
+                fruitName: fruitNameMap.get(item.fruitId),
+                price: fruitPriceMap.get(item.fruitId),
+                graphColor: graphColorMap.get(item.fruitId),
+                warehouseName: warehouseNameMap.get(item.warehouseId)
+        }))
+
+        setCombinedInventory(newCombinedInventory);
+    }, [inventory, fruitsList])
+
 
     return (
         <>
             <Header />
-            <div>hello</div>
             <MainContent>
 
-                <Sidebar>
-                    hello world sidebar
-                </Sidebar>
+                <Sidebar warehouseList={warehouseList} setWarehouseList={setWarehouseList} />
                 <RouteContainer>
                     <Routes>
-                        <Route path='/' element={<AllWarehouseOverview />} />
-                        <Route path='/fruit-information' element={<FruitInformation />} />
-                        <Route path='/warehouse-overview/:warehouseId' element={<WarehouseOverview />} />
-                        <Route path='/warehouse-inventory/:warehouseId' element={<WarehouseInventory />} />
+                        <Route path='/' element={<AllWarehouseOverview warehouseCount={warehouseList.length} combinedInventory={combinedInventory} />} />
+                        <Route path='/fruit-information' element={<FruitInformation fruitsList={fruitsList} setFruitsList={setFruitsList}/>} />
+                        <Route path='/warehouse-overview/:warehouseId' element={<WarehouseOverview combinedInventory={combinedInventory} warehouseList={warehouseList} />} />
+                        <Route path='/warehouse-inventory/:warehouseId' element={<WarehouseInventory inventory={inventory} setInventory={setInventory} combinedInventory={combinedInventory} fruitsList={fruitsList} warehouseList={warehouseList} />} />
                         
                     </Routes>
                 </RouteContainer>
             </MainContent >
-            <Footer />
         </>
     )
 }
@@ -75,9 +107,7 @@ export default function App() {
 const RouteContainer = styled.div`
     display: flex;
     flex-direction: column;
-    width: 75%;
     min-height: 95dvh;
     max-height: 95dvh;
-    border: 3px solid brown;
-    flex: 1;
+    width: 75%;
 `

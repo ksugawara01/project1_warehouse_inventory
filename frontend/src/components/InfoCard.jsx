@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 export default function InfoCard(props) {
-    const { category, data } = props;
+    const { category, data } = props
     return(
         <StyledInfoCard>
             <div>{category}</div>

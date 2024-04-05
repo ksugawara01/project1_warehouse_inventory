@@ -15,5 +15,4 @@ export default function TableContainer(props) {
 const StyledTableContainer = styled.div`
     height: 200px;
     width: 100%;
-    border: 5px solid grey;
 `

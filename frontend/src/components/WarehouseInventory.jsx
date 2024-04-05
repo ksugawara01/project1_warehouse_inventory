@@ -9,45 +9,41 @@ import '../radix-styles/table-scroll-area.css'
 
 import InventoryRow from './InventoryRow'
 import TableContainer from './TableContainer'
+import AddItemModal from './AddItemModal'
 
 export default function WarehouseInventory(props) {
-    //const { warehouseId, warehouseName } = props;
+    const { inventory, setInventory, combinedInventory, warehouseList, fruitsList } = props
 
-    //dummy data
-    const inventory = [
-        {
-            inventoryId: 1,
-            quantity: 123,
-            fruitId: 1,
-            warehouseId: 1,
-            fruitName: 'apple',
-            price: 1.25
-        },
-        {
-            inventoryId: 2,
-            quantity: 456,
-            fruitId: 2,
-            warehouseId: 1,
-            fruitName: 'banana',
-            price: 1.50
+    let { warehouseId } = useParams()
+    warehouseId = Number(warehouseId)
+
+    let warehouseName;
+    let address;
+
+    // Use warehouseId to get the warehouse name and address
+    warehouseList.forEach(warehouse => {
+        if(warehouse.warehouseId === warehouseId) {
+            warehouseName = warehouse.warehouseName
+            address = warehouse.address
         }
-    ]
+    });
 
-    //dummy data
-    const warehouse = {
-        warehouseId: 1,
-        warehouseName: 'Fairborn Fruit Warehouse',
-        address: '123 first street, Fairborn, OH, 45324'
-    }
-
-    const warehouseId = useParams().warehouseId;
+    // Create a new array with only the items of the currently selected warehouse
+    const currentWarehouseInventory = combinedInventory.filter((item) => item.warehouseId === warehouseId)
 
     return (
         <StyledWarehouseInventory>
-            <h1>{warehouse.warehouseName}</h1>
-            <div>{warehouse.address}</div>
+            <h1>{warehouseName}</h1>
+            <div>{address}</div>
             <h2>Inventory</h2>
-            <button>Add fruit to warehouse</button>
+            <AddItemModal
+                warehouseId={warehouseId}
+                inventory={inventory}
+                setInventory={setInventory}
+                fruitsList={fruitsList}
+                warehouseList={warehouseList}
+                combinedInventory={combinedInventory}
+            />
             <ScrollArea.Root className="ScrollAreaRoot">
                 <ScrollArea.Viewport className="ScrollAreaViewport">
                     {/*
@@ -68,8 +64,17 @@ export default function WarehouseInventory(props) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {inventory.map(item => {
-                                    return <InventoryRow key={item.inventoryId} fruitName={item.fruitName} quantity={item.quantity} totalValue={item.quantity * item.price} />
+                                {currentWarehouseInventory.map(item => {
+                                    return <InventoryRow
+                                        key={item.inventoryId}
+                                        item={item}
+                                        inventory={inventory}
+                                        setInventory={setInventory}
+                                        fruitsList={fruitsList}
+                                        warehouseId={warehouseId}
+                                        warehouseList={warehouseList}
+                                        combinedInventory={combinedInventory}
+                                    />
                                 })}
                             </tbody>
                         </table>
@@ -90,6 +95,5 @@ export default function WarehouseInventory(props) {
 // Styled Components
 
 const StyledWarehouseInventory = styled.div`
-    border: 10px solid red;
     height: 100%;
 `
